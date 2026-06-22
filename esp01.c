@@ -128,7 +128,7 @@ void esp01_connectAP(void)
 	StrLCD("AT+CWJAP");
 	delay_Ms(1000);
 	//need to change the wifi network name and password
-	UART_TxString("AT+CWJAP=\"Estheru\",\"Rani102003\"\r\n");
+	UART_TxString("AT+CWJAP=\"your device name\",\"password\"\r\n");
 	i=0;memset(buff,'\0',200);
 	while(i<4);
 	delay_Ms(2500);
@@ -188,7 +188,7 @@ void esp01_sendToThingspeak(char *val)
 		i=0;memset(buff,'\0',200);
 		//while(buff[i] != '>');
 		delay_Ms(500);
-		
+		//place your channel writekey to send temperature values to cloud
 		UART_TxString("GET /update?api_key=4LNX7BZRUSF0DN8S&field1=");
 		
 		UART_TxString(val);
@@ -275,7 +275,7 @@ void esp01_sendsetpoint(char *val)
 		i=0;memset(buff,'\0',200);
 		//while(buff[i] != '>');
 		delay_Ms(500);
-		
+		//place your channel writekey to send setpoint to cloud
 		UART_TxString("GET /update?api_key=JI9MG9B8AHEEVO0V&field1=");
 		UART_TxString(val);
 		UART_TxString("\r\n\r\n");
@@ -359,19 +359,14 @@ void ReadSetpointFromESP_01(char *p)
 		   i=0;
 		   memset(buff,'\0',200);
 		   delay_Ms(500);
+		//replace your channel id and channel writekey
 		   UART_TxString("GET /channels/2308650/fields/1/last.txt?api_key=JI9MG9B8AHEEVO0V\r\n");
 		  // UART_TxString("https://api.thingspeak.com/channels/2308650/fields/1/last.json?api_key=F5WDIS8FL7W3YYY5\r\n");
 		   // wait some more time.
        delay_Ms(10000);
 		   // now keep the NULL For safety.
 		   buff[i]= '\0';
-		   // CLEAR THE LCD.
-		   //CmdLCD(CLEAR_LCD);
-			 // setting the cursor.
-		/* Setcursor(1,0);
-			 StrLCD(buff);                 DEBUGGIN PURPOSE ONLY.
-			 delay_Ms(2000);*/
-			 
+			 //following instructions to read updated setpoint values from cloud if any
 		   if((q=strchr(buff,':'))!=NULL)
 			 {
 				  q++;
