@@ -1,5 +1,3 @@
-# CLOUD-ENABLED-IOT-THERMAL-ALERT-AND-LOGGING-SYSTEM-
-This System using an LPC2148 microcontroller. The system continuously monitors temperature via an LM35 sensor, displays it on an LCD, logs data to ThingSpeak cloud over Wi-Fi, and triggers buzzer alerts when temperature crosses a configured setpoint. The set point can be updated locally via keypad and remotely through the cloud
 # Cloud-Enabled IoT Thermal Alert and Logging System
 
 A real-time temperature monitoring system built on the LPC2148 ARM7 microcontroller. It reads temperature from an LM35 sensor, displays it on a 16x2 LCD, and logs data to the ThingSpeak cloud via an ESP01 Wi-Fi module every 2 minutes.
