@@ -23,11 +23,11 @@ int main()
      while(1)
 
      {
-
+                         //to dispaly RTC time in LCD
 		                 GetRTCTimeInfo(&v.hour,&v.min,&v.sec);
 					  
 			             	DisplayRTCTime(v.hour,v.min,v.sec);
-
+                           //reading temperature values from lm35 and adc
 				 						 Read_Temperature('c',&temperature);
 
 				  						 
@@ -38,24 +38,19 @@ int main()
 			              // INTERRUPT RELATED FLAG.
 
                           // SETPOINT BY MANUALLY.			 
-
-			 
-
 						if(isr_flag)
 
 						{
-							
 							   isr_flag = 0;
 							  
 				
 							   esp01_sendsetpoint(setpoint_value);
 
 							   Setcursor(1,0);
-										  StrLCD(setpoint_value);
+								StrLCD(setpoint_value);
 							   delay_Ms(3000);
+							//writing initial set point into eeprom
 							   I2C_EEPROM_PAGEWRITE(EEPROM_SENSOR ,0x0010 ,setpoint_value , 5);
-							  // I2C_EEPROM_SEQREAD(EEPROM_SENSOR,0x0010,read,5);
-							  // read[4]='\0';
 							   CmdLCD(0x01);
 							   Setcursor(1,0);
 							   StrLCD(read);
@@ -65,18 +60,12 @@ int main()
 
 							   delay_s(3);
 
-								
-							   
-
 							   CmdLCD(CLEAR_LCD);
 							   Setcursor(1,0);
 							   F32LCD(setpoint ,6);
 							   delay_s(10);
-
-							 
-
 						}
-
+                      //Flag related to time for cloud to send for every 2 minutes
 						if(flag)
 
 						{
@@ -195,28 +184,14 @@ int main()
 																	 
 
 						}
-
-						
-
-						
-
 						// NOW  COMPARING IT WITH EEPROM RELATED SETPOINT.
 
 			            // IF EQUAL FINE OTHERWISE WE NEED TO ASSIGN THE CLOUD SETPOINT.
-
-						
-
-						
-
-							// STEP1: NEED TO CHANGE THE EEPROM SETPOINT WITH CLOUD SETPOINT.
-
-							
-
-						
-
+						// STEP1: NEED TO CHANGE THE EEPROM SETPOINT WITH CLOUD SETPOINT.
 						if((MIN == min && sec <= SEC ))
 						{
-						 flag = 1; }
+						 flag = 1; 
+						}
 
 						if(temperature >= setpoint)
 
@@ -229,7 +204,6 @@ int main()
 							  IOCLR0 = 1<<16;
 						}							
 		 }	
-
-	 }		 
+}		 
 
 
